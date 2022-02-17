@@ -11,6 +11,7 @@
         </div>
         <div class="note-list">
             <div
+                class="note-list__item"
                 v-for="item in notes"
                 :key="item.id"
                 @click="selectNote(item.id)"
@@ -87,19 +88,40 @@ export default {
 .side-bar {
     width: 20%;
 }
+.tool-bar {
+    padding-bottom: 16px;
+    border-bottom: #81d1ba 1px solid;
+    box-sizing: border-box;
+}
+
 button {
     outline: none !important;
     background: #40b883;
     color: white;
     border-radius: 3px;
     border: none;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    margin: 0 auto;
 }
 button:hover {
     background: #63c89b;
 }
 
+.note-list {
+    border-right: #81d1ba 1px solid;
+    height: calc(100vh - 103px);
+}
+
+.note-list__item {
+    height: 32px;
+    line-height: 32px;
+}
+
 .selected {
     background: #40b883;
     color: white;
+    font-weight: bold;
 }
 </style>

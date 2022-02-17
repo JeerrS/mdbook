@@ -1,7 +1,8 @@
 <template>
     <div v-if="thisNote" style="width: 80%">
         <div class="top-toolbox">
-            <input v-model="thisNote.title">
+            <div class="top-toolbox__title">Title:</div>
+            <input class="top-toolbox__doc-name" v-model="thisNote.title">
             <button @click="removeNote" title="Remove note">
                 <i class="material-icons">delete</i>
             </button>
@@ -49,6 +50,42 @@ export default {
 </script>
 
 <style scoped>
+button {
+    outline: none !important;
+    background: #40b883;
+    color: white;
+    border-radius: 3px;
+    border: none;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+}
+button:hover {
+    background: #63c89b;
+}
+.top-toolbox {
+    height: 43px;
+    border-bottom: #81d1ba 1px solid;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+}
+.top-toolbox__title {
+    height: 26px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 26px;
+    margin-right: 8px;
+}
+.top-toolbox__doc-name {
+    height: 22px;
+    font-size: 18px;
+    line-height: 22px;
+    outline-style: none;
+    border: 0;
+    border-bottom: 1px #40b883 solid;
+    margin-right: 10px;
+}
 .write-page {
     width: 100%;
     display: flex;
@@ -56,19 +93,27 @@ export default {
 
 .write-page__write {
     width: 50%;
-    height: 100%;
+    height: calc(100vh - 119px);
+    border-right: #81d1ba 1px solid;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 16px;
 }
 
 textarea {
     font-family: sans-serif;
-    width: 100%;
+    width: calc(100% - 4px);
     border: 0;
     resize: none;
     outline: none !important;
+    height: calc(100% - 16px);
 }
 
 .write-page__preview {
+    padding-left: 16px;
+    padding-right: 16px;
     width: 50%;
     text-align: left;
+    height: calc(100vh - 119px);
 }
 </style>
