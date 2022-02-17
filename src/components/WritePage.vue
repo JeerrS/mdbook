@@ -6,6 +6,9 @@
             <button @click="removeNote" title="Remove note">
                 <i class="material-icons">delete</i>
             </button>
+            <button @click="favoriteNote" title="Favorite note">
+                <i class="material-icons">{{ thisNote.favorite ? 'star' : 'star_border' }}</i>
+            </button>
         </div>
         <div class="write-page">
             <section class="write-page__write">
@@ -44,6 +47,9 @@ export default {
         },
         removeNote() {
             this.$bus.$emit('remove-note');
+        },
+        favoriteNote() {
+            this.thisNote.favorite ^= true;
         }
     }
 }
@@ -59,6 +65,7 @@ button {
     font-size: 16px;
     line-height: 24px;
     display: flex;
+    margin-right: 10px;
 }
 button:hover {
     background: #63c89b;

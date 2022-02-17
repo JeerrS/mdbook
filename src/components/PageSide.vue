@@ -12,11 +12,12 @@
         <div class="note-list">
             <div
                 class="note-list__item"
-                v-for="item in notes"
+                v-for="item in sortedNotes"
                 :key="item.id"
                 @click="selectNote(item.id)"
                 :class="{selected: item.id === selectedId}"
             >
+                <i class="icon material-icons" v-if="item.favorite">star</i>
                 {{ item.title }}
             </div>
         </div>
@@ -46,6 +47,13 @@ export default {
     computed: {
         selectedNote() {
             return this.notes.find(note => note.id === this.selectedId);
+        },
+        sortedNotes() {
+            return this.notes.slice()
+            .sort((a, b) => a.created - b.created)
+            .sort((a, b) => (a.favorite === b.favorite) ? 0
+                : a.favorite ? -1
+                : 1)
         }
     },
     mounted() {
@@ -117,8 +125,13 @@ button:hover {
 .note-list__item {
     height: 32px;
     line-height: 32px;
+    position: relative;
 }
-
+.icon.material-icons {
+    position: absolute;
+    right: 20px;
+    top: 4px;
+}
 .selected {
     background: #40b883;
     color: white;
