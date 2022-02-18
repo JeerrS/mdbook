@@ -11,14 +11,17 @@
             </button>
         </div>
         <div class="write-page">
+            <div class="write-page__box">
             <section class="write-page__write">
-            <textarea v-model="thisNote.content"
-            ></textarea>
+                <textarea v-model="thisNote.content"
+                ></textarea>
             </section>
             <aside
                 class="write-page__preview"
                 v-html="notePreview"
             ></aside>
+            </div>
+            <span class="write-page span">{{"Created: " + timeStr + " Lines " + linesCount + " Words " + wordsCount + " Characters " + charsCount}}</span>
         </div>
     </div>
 </template>
@@ -39,6 +42,34 @@ export default {
     computed: {
         notePreview() {
             return marked(this.thisNote.content);
+        },
+        timeStr() {
+            return (new Date(this.thisNote.created)).toLocaleString();
+        },
+        linesCount() {
+            if (this.thisNote) {
+                return this.thisNote.content.split(/\r\n|\r|\n/).length;
+            } else {
+                return null
+            }
+        },
+        wordsCount() {
+            if (this.thisNote) {
+                let s = this.thisNote.content;
+                s = s.replace(/\n/g, '');
+                s = s.replace(/(^\s*)|(\s*$)/gi, '');
+                s = s.replace(/\s\s+/gi, ' ');
+                return s.split(' ').length;
+            } else {
+                return null
+            }
+        },
+        charsCount() {
+            if (this.thisNote) {
+                return this.thisNote.content.split('').length;
+            } else {
+                return null
+            }
         }
     },
     methods: {
@@ -96,15 +127,27 @@ button:hover {
 .write-page {
     width: 100%;
     display: flex;
+    flex-direction: column;
+}
+
+.write-page__box {
+    width: 100%;
+    display: flex;
+
 }
 
 .write-page__write {
     width: 50%;
-    height: calc(100vh - 119px);
+    height: calc(100vh - 140px);
     border-right: #81d1ba 1px solid;
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 16px;
+}
+
+.write-page.span {
+    display: block;
+    text-align: left;
 }
 
 textarea {
@@ -121,6 +164,6 @@ textarea {
     padding-right: 16px;
     width: 50%;
     text-align: left;
-    height: calc(100vh - 119px);
+    height: calc(100vh - 140px);
 }
 </style>
